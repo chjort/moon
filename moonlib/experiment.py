@@ -67,6 +67,7 @@ def run_rf_experiment(df, X_cols, y_col, model_params, model_dir, log_dir, show=
              info_score_names=info_score_names
              )
 
+    fig = plt.figure()
     plt.bar(range(len(im_scores)), im_scores)
     plt.title("Image feature scores")
     plt.xlabel("Feature index")
@@ -74,7 +75,10 @@ def run_rf_experiment(df, X_cols, y_col, model_params, model_dir, log_dir, show=
     plt.savefig(os.path.join(log_dir, "image_feature_importances.png"))
     if show:
         plt.show()
+    else:
+        plt.close("all")
 
+    fig = plt.figure()
     plt.bar(range(len(info_scores)), info_scores)
     plt.title("Info feature scores")
     plt.xlabel("Feature index")
@@ -82,3 +86,5 @@ def run_rf_experiment(df, X_cols, y_col, model_params, model_dir, log_dir, show=
     plt.savefig(os.path.join(log_dir, "info_feature_importances.png"))
     if show:
         plt.show()
+    else:
+        plt.close("all")

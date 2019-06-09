@@ -129,6 +129,8 @@ def plot_patches(patches, figsize=(10,10), wspace=0.1, hspace=0.1, border_width=
         plt.savefig(save_to)
     if show:
         plt.show()
+    else:
+        plt.close("all")
 
 
 def bin_column(df, column, n_bins=10):
