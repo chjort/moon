@@ -6,7 +6,6 @@ from scipy.ndimage import shift
 from datetime import datetime
 import os
 import glob
-import cv2
 
 
 def load_folder(path):
@@ -144,30 +143,18 @@ def bin_column(df, column, n_bins=10):
 
 class MoonContamination:
     def __init__(self):
-        self._noise_files = glob.glob("/home/ch/Dropbox/DTU/Research/Revealing Climate Change from Moon Images/code/noise_and_offsets/white*/*.tif")
-        self._offset_file = "/home/ch/Dropbox/DTU/Research/Revealing Climate Change from Moon Images/code/noise_and_offsets/offsets.txt"
+        self._noise_file = "noise_and_offsets/noise_images.npz"
+        self._offset_file = "noise_and_offsets/offsets.txt"
         self.offsets = pd.read_csv(self._offset_file).values
-
-    def _read_noise_image(self, file):
-        img = cv2.imread(file, -1)
-        img = img.astype(np.int16) - 10000
-        return img
-
-    def get_noise_images(self):
-        images = []
-        for file in self._noise_files:
-            img = self._read_noise_image(file)
-            images.append(img)
-
-        return np.array(images)
+        self.noise_images = np.load(self._noise_file)["images"]
 
     def add_random_moon_noise(self, img, seed=None):
         if seed is not None:
             np.random.seed(seed)
         if np.shape(img) != (512, 512):
             raise ValueError("Invalid image shape {}. Image shape must be (512, 512)".format(np.shape(img)))
-        random_noise_file_index = np.random.randint(0, len(self._noise_files))
-        noise = self._read_noise_image(self._noise_files[random_noise_file_index])
+        random_noise_file_index = np.random.randint(0, self.noise_images.shape[0])
+        noise = self.noise_images[random_noise_file_index]
         return np.clip(img + noise, a_min=0, a_max=55000)
 
     def add_random_offset(self, img, seed=None):
