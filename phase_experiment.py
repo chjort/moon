@@ -10,7 +10,7 @@ import shutil
 
 #%
 files = glob.glob("/media/ch/Seagate Expansion Drive/MOON/processed_mean_4x4-128x128/*")
-for file in files[:2]:
+for file in files:
     print(file)
     data_path = file
     patch_size_s = os.path.basename(data_path).split("_")[1].split("x")

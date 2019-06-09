@@ -10,7 +10,7 @@ np.random.seed(42)
 
 #% load data
 files = glob.glob("/media/ch/Seagate Expansion Drive/MOON/processed_mean_4x4-128x128/*")
-for file in files[0:2]:
+for file in files:
     print(file)
     data_path = file
     patch_size_s = os.path.basename(data_path).split("_")[1].split("x")
@@ -19,7 +19,7 @@ for file in files[0:2]:
 
     #
     im_indices = [i for i, col in enumerate(df.columns) if col[:2] == "mu"]
-    X_cols, y_col = np.array([*df.columns[im_indices], "ALPHA", "PHASE"]), "ALBEDO"
+    X_cols, y_col = np.array([*df.columns[im_indices]]), "ALBEDO"
 
     model_params = {"n_estimators": 250,
                     "n_jobs": 7,
