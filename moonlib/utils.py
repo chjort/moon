@@ -83,7 +83,7 @@ def patches_means(patches):
 
 
 def plot_patches(patches, figsize=(10,10), wspace=0.1, hspace=0.1, border_width=2, patch_scores=None, save_to=None,
-                 title=None
+                 title=None, show=True
                  ):
     if patch_scores is not None and patches.shape[0]*patches.shape[1] != len(patch_scores):
         raise ValueError("Number of patch scores must be the same as number of patches")
@@ -127,7 +127,8 @@ def plot_patches(patches, figsize=(10,10), wspace=0.1, hspace=0.1, border_width=
         fig.suptitle(title, fontsize=20)
     if save_to is not None:
         plt.savefig(save_to)
-    plt.show()
+    if show:
+        plt.show()
 
 
 def bin_column(df, column, n_bins=10):

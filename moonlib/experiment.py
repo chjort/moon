@@ -1,23 +1,17 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import os
-import glob
 from joblib import dump
-import json
-
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
 from moonlib.metrics import mean_average_error_percentage
-from moonlib import utils
 
 np.random.seed(42)
 
 
-def run_rf_experiment(df, X_cols, y_col, model_params, model_dir, log_dir):
+def run_rf_experiment(df, X_cols, y_col, model_params, model_dir, log_dir, show=True):
     X, y = df[X_cols].values, df[y_col].values
-
     X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle=True)
 
 
@@ -78,11 +72,13 @@ def run_rf_experiment(df, X_cols, y_col, model_params, model_dir, log_dir):
     plt.xlabel("Feature index")
     plt.ylabel("Score")
     plt.savefig(os.path.join(log_dir, "image_feature_importances.png"))
-    plt.show()
+    if show:
+        plt.show()
 
     plt.bar(range(len(info_scores)), info_scores)
     plt.title("Info feature scores")
     plt.xlabel("Feature index")
     plt.ylabel("Score")
     plt.savefig(os.path.join(log_dir, "info_feature_importances.png"))
-    plt.show()
+    if show:
+        plt.show()
