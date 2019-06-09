@@ -55,6 +55,7 @@ for file in files:
                )
     plt.legend()
     plt.savefig(os.path.join(exp_dir, "albedo_across_bins_fig.png"))
+    plt.close("all")
     #plt.show()
 
 
@@ -67,6 +68,7 @@ for file in files:
     plt.title("Phase bins")
     plt.xticks(np.arange(len(bins)) - 0.5, bins.round(0))
     plt.savefig(os.path.join(exp_dir, "phase_bins_count_fig.png"))
+    plt.close("all")
     #plt.show()
 
     #%% Find an image from each bin.
