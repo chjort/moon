@@ -9,7 +9,8 @@ import shutil
 
 
 #%
-files = glob.glob("/media/ch/Seagate Expansion Drive/MOON/processed_mean_4x4-128x128/*")
+#files = glob.glob("/media/ch/Seagate Expansion Drive/MOON/processed_mean_4x4-128x128/*")
+files = ["/media/ch/Seagate Expansion Drive/MOON/processed_mean_4x4-128x128/s0-5_32x32"]
 for file in files:
     print(file)
     data_path = file
@@ -89,12 +90,12 @@ for file in files:
     #     if len(found_bins) == n_bins:
     #         break
 
-    img_files = sorted(glob.glob("/home/ch/Dropbox/DTU/Research/Revealing Climate Change from Moon Images/plot_images/phases/*"))
+    img_files = sorted(glob.glob("plot_images/phases/*"))
     binned_imgs = {i:{"img_path":ifile} for i, ifile in enumerate(img_files)}
 
     #%% Train separate models on each bin
 
-    model_params = {"n_estimators": 250,
+    model_params = {"n_estimators": 10,
                     "n_jobs": 7,
                     "verbose": 2
                     }
@@ -123,6 +124,7 @@ for file in files:
         run_rf_experiment(df=df,
                           X_cols=X_cols,
                           y_col=y_col,
+                          im_indices=im_indices,
                           model_params=model_params,
                           model_dir=model_dir,
                           log_dir=log_dir,
