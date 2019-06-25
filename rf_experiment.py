@@ -39,6 +39,7 @@ for file in files:
     run_rf_experiment(df=df,
                       X_cols=X_cols,
                       y_col=y_col,
+                      im_indices=im_indices,
                       model_params=model_params,
                       model_dir=model_dir,
                       log_dir=log_dir,

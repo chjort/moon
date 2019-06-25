@@ -10,10 +10,14 @@ from moonlib.metrics import mean_average_error_percentage
 np.random.seed(42)
 
 
-def run_rf_experiment(df, X_cols, y_col, model_params, model_dir, log_dir, show=True):
+def run_rf_experiment(df, X_cols, y_col, im_indices, model_params, model_dir, log_dir, show=True):
     X, y = df[X_cols].values, df[y_col].values
     X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle=True)
 
+    train_weight = np.diag(np.random.uniform(0.5, 1.5, size=X_train.shape[0]))
+    X_train[:,im_indices] = train_weight.dot(X_train[:,im_indices])
+    test_weight = np.diag(np.random.uniform(0.5, 1.5, size=X_train.shape[0]))
+    X_test[:, im_indices] = test_weight.dot(X_test[:, im_indices])
 
     model = RandomForestRegressor(**model_params)
 
