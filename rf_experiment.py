@@ -21,7 +21,7 @@ for file in files:
     im_indices = [i for i, col in enumerate(df.columns) if col[:2] == "mu"]
     X_cols, y_col = np.array([*df.columns[im_indices]]), "ALBEDO"
 
-    model_params = {"n_estimators": 250,
+    model_params = {"n_estimators": 10,
                     "n_jobs": 7,
                     "verbose": 2
                     }
@@ -51,7 +51,7 @@ for file in files:
     feat_file = os.path.join(log_dir, "feature_importances.npz")
     feat = np.load(feat_file)["image_scores"]
 
-    img, info = utils.load_fits('../plot_images/single_phase/2455890.1730884_1.64449716_0.05676983_0.21432364.fits')
+    img, info = utils.load_fits('plot_images/single_phase/2455890.1730884_1.64449716_0.05676983_0.21432364.fits')
     patches = utils.img_to_patches(np.log(img), patch_size)
 
     utils.plot_patches(patches, wspace=0.1, hspace=0.1, border_width=2, patch_scores=feat,
