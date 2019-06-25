@@ -21,7 +21,7 @@ for file in files:
     im_indices = [i for i, col in enumerate(df.columns) if col[:2] == "mu"]
     X_cols, y_col = np.array([*df.columns[im_indices]]), "ALBEDO"
 
-    model_params = {"n_estimators": 10,
+    model_params = {"n_estimators": 250,
                     "n_jobs": 7,
                     "verbose": 2
                     }
