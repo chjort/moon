@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib
+matplotlib.use(("Agg"))
 import matplotlib.pyplot as plt
 import glob
 import json
@@ -9,7 +11,6 @@ import shutil
 
 
 #%
-#files = glob.glob("/media/ch/Seagate Expansion Drive/MOON/processed_mean_4x4-128x128/*")
 files = ["/media/ch/Seagate Expansion Drive/MOON/processed_mean_4x4-128x128/s0-5_32x32"]
 for file in files:
     print(file)
@@ -95,7 +96,7 @@ for file in files:
 
     #%% Train separate models on each bin
 
-    model_params = {"n_estimators": 10,
+    model_params = {"n_estimators": 250,
                     "n_jobs": 7,
                     "verbose": 2
                     }
